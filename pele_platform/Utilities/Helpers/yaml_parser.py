@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from pele_platform.Errors.custom_errors import LigandNameNotSupported
+from pele_platform.Errors.custom_errors import LigandNameNotSupported, MultipleSimulationTypes
+from pele_platform.features.adaptive import SOFTWARE_CONSTANTS
 from difflib import SequenceMatcher
 import os
 import yaml
@@ -13,10 +14,10 @@ def _yaml_error_wrapper(error):
     """
     custom_errors = {
         "expected '<document start>', but found '<block mapping start>'": "Please ensure every key in input.yaml is "
-        "followed by a colon and "
-        "a space. There seem to be some issues on line {}, character {}.",
+                                                                          "followed by a colon and "
+                                                                          "a space. There seem to be some issues on line {}, character {}.",
         "found character '\\t' that cannot start any token": "Please remove any trailing tabs from input.yaml, there "
-        "seem to be one on line {}, character {}.",
+                                                             "seem to be one on line {}, character {}.",
     }
 
     custom = custom_errors.get(str(error.problem).strip(), None)
@@ -38,6 +39,7 @@ class YamlParser(object):
         self.data = self._parse_yaml()
         self._check()
         self._check_residue()
+        self._check_multiple_simulations()
         self._parse()
         self._get_value_from_env()
 
@@ -53,7 +55,6 @@ class YamlParser(object):
     def _get_value_from_env(self):
         self.usesrun = bool(os.environ.get("SRUN", self.usesrun))
 
-
     def _check(self) -> None:
         # Check if valids in yaml file are valids
         for key in self.data.keys():
@@ -66,6 +67,18 @@ class YamlParser(object):
                 raise LigandNameNotSupported(
                     "'UNK' ligand name is not supported, please rename it, e.g. 'LIG'."
                 )
+
+    def _check_multiple_simulations(self):
+        """
+        Raises an error, if the user specified more than one simulation type in YAML.
+        """
+        available_simulations = SOFTWARE_CONSTANTS.get("simulation_params", {})
+        specified_simulations = [key for key in self.data.keys() if key in available_simulations.keys()]
+
+        if len(specified_simulations) > 1:
+            raise MultipleSimulationTypes(
+                f"You cannot select multiple simulation types in input.yaml, please select one of "
+                f"{', '.join(specified_simulations)}.")
 
     def _recommend(self, key):
         most_similar_flag = None

@@ -344,3 +344,13 @@ def test_SmilesConstraints_class():
     )
     assert matches == ((9, 0, 1, 2, 3, 4, 5, 6, 7, 8),)
     assert constraints == SMILES_CONSTR
+
+
+def test_check_multiple_simulations():
+    """
+    Ensures the platform raises an error, if the user sets more than one simulation type in YAML.
+    """
+    yaml_file = os.path.join(test_path, "checker", "multiple_simulations.yaml")
+
+    with pytest.raises(ce.MultipleSimulationTypes):
+        main.run_platform_from_yaml(yaml_file)

@@ -1,0 +1,6 @@
+system: '../pele_platform/Examples/gpcr/complex.pdb'
+chain: 'L'
+resname: 'LIG'
+rescoring: true
+global: true
+debug: true

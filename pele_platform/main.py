@@ -75,7 +75,7 @@ def run_platform_from_yaml(input_yaml):
 
         raise custom_errors.WrongYamlFile(
             "Input file: {}".format(input_yaml)
-            + "does not look like a correct yaml file")
+            + " does not look like a correct yaml file")
 
     # Initialize job launcher
     from pele_platform.Utilities.Helpers.launcher import Launcher
