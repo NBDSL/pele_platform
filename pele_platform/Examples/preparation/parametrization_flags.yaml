@@ -1,0 +1,14 @@
+system: '../pele_platform/Examples/Msm/PR_1A28_xray_-_minimized_processed.pdb'
+chain: 'Z'
+resname: 'STR'
+rescoring: true
+test: true
+core:
+  - "C2"
+  - "C3"
+  - "C4"
+#forcefield: "openff-1.3.0"
+#solvent: "OPLS_OBC"
+gridres: 30
+exclude_terminal_rotamers: False
+charge_parametrization_method: "gasteiger"

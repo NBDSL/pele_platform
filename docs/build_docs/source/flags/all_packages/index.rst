@@ -58,7 +58,7 @@ Simulation parameters
 
 - **temperature**: Temperature of the simulation. Default=1500
 
-- **solvent**: Solvent of the simulation. (OBC or VDGBNP). Default=VDGBNP
+- **solvent**: Solvent of the simulation. (OBC or VDGBNP). Please, take into account that any OpenFF force field can only run with the OBC solvent model. Default=VDGBNP (unless for the OpenFF, which the default is OBC)
 
 - **sidechain_res**: Receptor sidechain resolution. Default=10
 
@@ -155,46 +155,73 @@ Configure the parameters of the PPP (Protein Pele Preparation)
 
 
 Ligand preparation
-----------------------
+------------------
 
-Configure the parameters of the PlopRotTemp to extract the ligand forcefield parameters.
+In order to run a simulation, PELE requires the following files for every non standard molecule (i.e. any non standard small molecule or residue):
 
-- **gridres**: Resolution of the rotamers when sampling. Default: 10 degrees
+    - **IMPACT template**: it contains the force field parameters. Please, check `this site <https://nostrumbiodiscovery.github.io/pele_docs/fileFormats.html#impact-template-file-format>`_ to get further information about it.
+    - **rotamer library**: optional file containing the list of rotatable bonds to sample by the side chain perturbation algorithm. If missing, the flexibility of the corresponding molecule will not considered. Please, check `this site <https://nostrumbiodiscovery.github.io/pele_docs/fileFormats.html#sec-fileformats-ligandrotamers>`_
+    - **solvent template**: some special solvents like "OBC" require extra parameters.
 
-- **core**: Atomnumber of the atom that will be included as part of the rigid core. Default=None
+All these files can be automatically generated with `peleffy (PELE Force Field Yielder) <https://github.com/martimunicoy/peleffy>`_, one of the dependencies of the PELE Platform.
+The following parameters below control the way how the PELE Platform will parametrize non standard molecules for you:
 
-- **maxtorsion**: Maximum number of rotamers per flexible sidechain. Default: 4
+- **forcefield**: Forcefield used to parametrize hetero molecules, you can use one of:
 
-- **n**: Maximum number of flexible sidechains in a molecule, Default: None
+        - "OPLS2005" (default)
+        - "openff-1.3.0"
+        - "openff-1.2.1"
+        - "openff-1.2.0"
+        - "openff-1.1.1"
+        - "openff-1.1.0"
+        - "openff-1.0.1"
+        - "openff-1.0.0"
 
-- **mae_lig**: Mae file to extract the cuantum charges from. Default: None
+- **charge_parametrization_method**: The method to use to assign partial charges to atoms:
 
-- **template**: External forcefield templaters
+        - "gasteiger"
+        - "am1bcc" (default when using any "OpenFF" force field)
+        - "OPLS2005" (default when using "OPLS2005")
 
-- **rotamers**: External rotamer libraries
+- **gridres**: Resolution of the rotamers when sampling them by the Side Chain prediction algorithm. Default=10 degrees
 
-- **skip_ligand_prep**: Skip preparation of that resiude. This could be usefull to bypass problems with PlopRotTemp when creating the ligand parameters.
+- **core**: List of PDB atom names that will be included as part of the rigid core. In case it is not specified, the algorithm will pick up a set of non-rotatable atoms centered in the molecular structure. Default=None
 
+- **exclude_terminal_rotamers**: Exclude terminal rotamers during parametrization of non standard molecules if they belong to a small terminal group. Default=True
+
+- **mae_lig**: External MAE file with quantum charges generated with Schrödinger suite. When supplied, any charge calculated internally in the platform will be replaced by the charges from this file. Default=None
 
 ..  code-block:: yaml
 
-  gridres: 10
-  core: -1
-  maxtorsion: 4
-  n: 5
-  mae_lig: "/home/dsoler/lig.mae"
-  templates:
-    - "/home/dsoler/mgz"
-    - "/home/dsoler/ligz"
-  rotamers:
-    - "/home/dsoler/MG.rot.assign"
-    - "/home/dsoler/LIG.rot.assign"
-  skip_ligand_prep:
-    - "LIG"
+    charge_parametrization_method: "gasteiger"
+    forcefield: "openff-1.3.0"
+    gridres: 20
+    core:
+        - "O1"
+        - "C1"
+        - "C2"
+        - "N1"
 
+Alternatively, you can provide your own template and/or rotamer files as long as they follow PELE's naming convention
+(see examples in the block code below). When templates
+
+    - **templates**: External forcefield template files.
+
+    - **rotamers**: External rotamer library files.
+
+..  code-block:: yaml
+
+  templates:
+    - "/home/simulation_files/mgz"
+    - "/home/simulation_files/ligz"
+  rotamers:
+    - "/home/simulation_files/MG.rot.assign"
+    - "/home/simulation_files/LIG.rot.assign"
+
+For more technical details about ligand parametrization, you can refer to the `PELE Force Field Yielder documentation <https://martimunicoy.github.io/peleffy/>`_.
 
 Constraints
---------------
+-----------
 
 - **water_constr**: Water constraints. Default=5
 

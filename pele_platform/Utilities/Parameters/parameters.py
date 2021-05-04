@@ -254,7 +254,7 @@ class Parameters(simulation_params.SimulationParams,
             setattr(self, key, value)
 
     def create_files_and_folders(self):
-        if not self.adaptive_restart:
+        if not self.adaptive_restart and not self.only_analysis:
             self.create_folders()
             self.create_files()
             self.create_logger()

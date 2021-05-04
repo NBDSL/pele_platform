@@ -7,7 +7,9 @@ from pele_platform.Utilities.Parameters.SimulationParams.MSMParams import msm_pa
 from pele_platform.Utilities.Parameters.SimulationParams.GlideParams import glide_params
 from pele_platform.Utilities.Parameters.SimulationParams.BiasParams import bias_params
 from pele_platform.Utilities.Parameters.SimulationParams.InOutParams import inout_params
-from pele_platform.Adaptive.interaction_restrictions import InteractionRestrictionsBuilder
+from pele_platform.Adaptive.interaction_restrictions import (
+    InteractionRestrictionsBuilder,
+)
 from pele_platform.Utilities.Parameters.SimulationParams.PCA import pca
 from pele_platform.Utilities.Parameters.SimulationParams.site_finder import site_finder
 from pele_platform.Utilities.Parameters.SimulationParams.PPI import ppi
@@ -23,9 +25,8 @@ class SimulationParams(
     inout_params.InOutParams,
     pca.PCAParams,
     site_finder.SiteFinderParams,
-    ppi.PPIParams
+    ppi.PPIParams,
 ):
-
     def __init__(self, args):
         self.simulation_type(args)
         self.main_pele_params(args)
@@ -53,7 +54,9 @@ class SimulationParams(
         # rna.RNAParams.__init__(self, args)
 
     def simulation_type(self, args):
-        self.adaptive = True if args.package in ["site_finder", "adaptive", "PPI"] else None
+        self.adaptive = (
+            True if args.package in ["site_finder", "adaptive", "PPI"] else None
+        )
         self.frag_pele = True if args.package == "frag" else None
         # Trick to let frag handle control fodler parameters --> Improve
         self.complexes = "$PDB" if self.frag_pele else "$COMPLEXES"
@@ -71,7 +74,7 @@ class SimulationParams(
         self.chain = args.chain
         if self.adaptive:
             assert (
-                    self.system and self.residue and self.chain
+                self.system and self.residue and self.chain
             ), "User must define input, residue and chain"
         self.debug = args.debug if args.debug else False
         self.pele_steps = (
@@ -279,19 +282,26 @@ class SimulationParams(
         )
 
     def optative_params(self, args):
-        self.forcefield = (
-            args.forcefield
-            if args.forcefield
-            else self.simulation_params.get("forcefield", "OPLS2005")
-        )
-        self.solvent = (
-            args.solvent
-            if args.solvent
-            else self.simulation_params.get("solvent", "VDGBNP")
-        )
+        if args.forcefield is None:
+            self.forcefield = self.simulation_params.get("forcefield",
+                                                         "OPLS2005")
+        else:
+            self.forcefield = args.forcefield
+
+        # Keep in mind the the default solvent is "VDGBNP" when using OPLS2005
+        # and "OBC" when using any OpenFF force field
+        if args.solvent is None:
+            if 'openff' in self.forcefield.lower():
+                self.solvent = 'OBC'
+            else:
+                self.solvent = 'VDGBNP'
+        else:
+            self.solvent = args.solvent
+
         self.verbose = (
             "true" if args.verbose else self.simulation_params.get("verbose", "false")
         )
+
         self.cpus = args.cpus = (
             args.cpus if args.cpus else self.simulation_params.get("cpus", 60)
         )
@@ -337,10 +347,16 @@ class SimulationParams(
             args.polarization_factor if args.polarization_factor else 2.0
         )
         self.skip_refinement = args.skip_refinement if args.skip_refinement else False
-        self.bandwidth = args.bandwidth if args.bandwidth else self.simulation_params.get(
-            "bandwidth", 2.5)
-        self.clustering_method = args.clustering_method if args.clustering_method else self.simulation_params.get(
-            "clustering_method", "meanshift")
+        self.bandwidth = (
+            args.bandwidth
+            if args.bandwidth
+            else self.simulation_params.get("bandwidth", 2.5)
+        )
+        self.clustering_method = (
+            args.clustering_method
+            if args.clustering_method
+            else self.simulation_params.get("clustering_method", "meanshift")
+        )
 
     def system_preparation_params(self, args):
         self.skip_prep = (
@@ -393,18 +409,21 @@ class SimulationParams(
             if args.rotamers
             else self.simulation_params.get("rotamers", [])
         )
-        self.skip_ligand_prep = (
-            args.skip_ligand_prep
-            if args.skip_ligand_prep
-            else self.simulation_params.get("args.skip_ligand_prep", [])
-        )
         self.core = args.core
-        self.n = args.n
-        self.mtor = args.mtor
-        self.forcefield = args.forcefield
-        self.mae_lig = args.mae_lig
+        self.forcefield = args.forcefield if args.forcefield is not None else "OPLS2005"
         self.lig = self.mae_lig if self.mae_lig else "{}.mae".format(self.residue)
         self.gridres = args.gridres
+        self.charge_parametrization_method = (
+            args.charge_parametrization_method
+            if args.charge_parametrization_method
+            else "am1bcc"
+        )
+        self.exclude_terminal_rotamers = (
+            args.exclude_terminal_rotamers
+            if args.exclude_terminal_rotamers is not None
+            else True
+        )
+        self.skip_ligand_prep = args.skip_ligand_prep if args.skip_ligand_prep else []
 
     def water_params(self, args):
         self.water_temp = (
@@ -467,7 +486,7 @@ class SimulationParams(
             else:
                 self.box_center = [str(x) for x in args.box_center]
                 self.box_center = (
-                        "[" + ",".join([str(coord) for coord in self.box_center]) + "]"
+                    "[" + ",".join([str(coord) for coord in self.box_center]) + "]"
                 )
         else:
             self.box_center = self.simulation_params.get("box_center", None)
@@ -492,11 +511,25 @@ class SimulationParams(
         self.limit_column = args.limit_column
         self.kde = args.kde if args.kde is not None else False
         self.kde_structs = args.kde_structs if args.kde_structs else 1000
-        self.min_population = args.min_population if args.min_population is not None else 0.01
-        self.max_top_clusters = args.max_top_clusters if args.max_top_clusters is not None else 8
-        self.max_top_poses = args.max_top_poses if args.max_top_poses is not None else 100
-        self.top_clusters_criterion = args.top_clusters_criterion if args.top_clusters_criterion is not None else "interaction_25_percentile"
-        self.cluster_representatives_criterion = args.cluster_representatives_criterion if args.cluster_representatives_criterion is not None else "interaction_5_percentile"
+        self.min_population = (
+            args.min_population if args.min_population is not None else 0.01
+        )
+        self.max_top_clusters = (
+            args.max_top_clusters if args.max_top_clusters is not None else 8
+        )
+        self.max_top_poses = (
+            args.max_top_poses if args.max_top_poses is not None else 100
+        )
+        self.top_clusters_criterion = (
+            args.top_clusters_criterion
+            if args.top_clusters_criterion is not None
+            else "interaction_25_percentile"
+        )
+        self.cluster_representatives_criterion = (
+            args.cluster_representatives_criterion
+            if args.cluster_representatives_criterion is not None
+            else "interaction_5_percentile"
+        )
 
     def constraints_params(self, args):
         """
@@ -539,7 +572,9 @@ class SimulationParams(
         """
         if args.interaction_restrictions:
             restrictions = InteractionRestrictionsBuilder()
-            restrictions.parse_interaction_restrictions(self.system, args.interaction_restrictions)
+            restrictions.parse_interaction_restrictions(
+                self.system, args.interaction_restrictions
+            )
             self.met_interaction_restrictions = restrictions.metrics_to_json()
             self.interaction_restrictions = restrictions.conditions_to_json()
             self.parameters = restrictions.fill_template(self.parameters)

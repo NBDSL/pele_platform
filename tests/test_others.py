@@ -1,7 +1,4 @@
 import os
-import pytest
-from subprocess import Popen, PIPE
-import glob
 import pele_platform.constants.constants as cs
 import pele_platform.constants.pele_params as pp
 import pele_platform.main as main
@@ -176,15 +173,6 @@ def test_mpirun_in_path(ext_args=EXTERNAL_CONSTR_ARGS):
     assert False
 
 
-def test_lig_preparation_error(args=LIG_PREP_ARGS):
-    try:
-        job = main.run_platform_from_yaml(args)
-    except ce.LigandPreparationError:
-        assert True
-        return
-    assert False
-
-
 def test_env_variable(ext_args=ENV_ARGS):
     try:
         job = main.run_platform_from_yaml(ext_args)
@@ -220,7 +208,7 @@ def test_template_error(yaml=yaml):
     try:
         job = main.run_platform_from_yaml(yaml)
     except ce.TemplateFileNotFound as e:
-        assert str(e).strip("'") == "File mgadeaz not found"
+        assert str(e).strip("'") == "Could not locate mgadeaz file. Please double-check the path."
         return
     assert False
 
@@ -242,7 +230,7 @@ def test_rotamer_error(yaml=yaml):
     try:
         job = main.run_platform_from_yaml(yaml)
     except ce.RotamersFileNotFound as e:
-        assert str(e).strip("'") == "File mgadeaz not found"
+        assert str(e).strip("'") == "Could not locate mgadeaz file. Please double-check the path."
         return
     assert False
 
@@ -344,3 +332,12 @@ def test_SmilesConstraints_class():
     )
     assert matches == ((9, 0, 1, 2, 3, 4, 5, 6, 7, 8),)
     assert constraints == SMILES_CONSTR
+
+
+def test_protonation_error():
+    """
+    Checks if we catch unprotonated systems and raise an error.
+    """
+    from pele_platform.Adaptive.parameterizer import Parameterizer
+    with pytest.raises(ce.ProtonationError):
+        Parameterizer(pdb_file=os.path.join(test_path, "preparation/6qmk_correct.pdb"))

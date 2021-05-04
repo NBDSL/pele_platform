@@ -10,7 +10,6 @@ steps: 1
 ca_interval: 1
 skip_preprocess: true
 gridres: 60
-maxtorsion: 2
 templates:
   - "../pele_platform/Examples/analysis/data/mgz"
   - "../pele_platform/Examples/analysis/data/strz"
@@ -58,7 +57,6 @@ pele_exec: "done"
 pele_data: "done"
 pele_documents: "done"
 verbose: true
-water_freq: 3
 water_overlap: 3
 waters:
 - M:1
@@ -72,7 +70,3 @@ anm_num_of_modes: 3
 anm_relaxation_constr: 3
 remove_constraints: false
 no_check: true
-
-
-
-

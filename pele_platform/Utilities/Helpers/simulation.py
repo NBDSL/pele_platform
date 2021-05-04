@@ -35,10 +35,16 @@ class SimulationBuilder(template_builder.TemplateBuilder):
         self.fill_adaptive_template(parameters)
 
     def fill_pele_template(self, env: pv.ParametersBuilder, water_obj: wt.WaterIncluder) -> None:
+        # Translate OpenFF force field names into the format expected by PELE
+        if 'openff' in env.forcefield.lower():
+            forcefield = 'OpenFF-OPLS2005'
+        else:
+            forcefield = 'OPLS2005'
+
         # Fill in PELE template
         self.pele_keywords = { "PERTURBATION": env.perturbation, "SELECTION_TO_PERTURB": env.selection_to_perturb,
                         "BE": env.binding_energy, "SASA": env.sasa,
-                        "LOGFILE": env.logfile, "NATIVE": env.native, "FORCEFIELD": env.forcefield, "CHAIN": env.chain, 
+                        "LOGFILE": env.logfile, "NATIVE": env.native, "FORCEFIELD": forcefield, "CHAIN": env.chain,
                         "CONSTRAINTS": "\n".join(env.constraints), "CPUS":env.cpus,
                         "LICENSES": env.license, "BOX_RADIUS": env.box_radius, "BOX_CENTER": env.box_center,
                         "SASA_min": env.sasa_min, "SASA_max": env.sasa_max,

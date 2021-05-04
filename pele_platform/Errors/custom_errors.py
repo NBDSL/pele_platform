@@ -52,3 +52,6 @@ class LigandNameNotSupported(Exception):
 
 class SubstructureError(Exception):
     pass
+
+class ProtonationError(Exception):
+    pass

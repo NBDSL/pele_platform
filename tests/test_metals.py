@@ -5,6 +5,7 @@ import pele_platform.constants.constants as cs
 import glob
 import os
 
+
 test_path = os.path.join(cs.DIR, "Examples")
 METAL_CONSTR_ARGS = os.path.join(test_path, "constraints/input_metals.yaml")
 NO_METAL_CONSTR_ARGS = os.path.join(test_path, "constraints/input_no_metal_constraints.yaml")
@@ -21,49 +22,49 @@ IGNORE_ARGS = os.path.join(test_path, "constraints/input_ignore.yaml")
 IGNORE = "A:2002:MG__"
 
 PASS_METAL_CONSTR = [
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.7238008975982666, "constrainThisAtom":  "A:40:_OG_", "toThisOtherAtom": "A:2002:MG__"}',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 1.9963840246200562, "constrainThisAtom":  "Z:2001:_O5_", "toThisOtherAtom": "A:2002:MG__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.107039213180542, "constrainThisAtom":  "Z:2001:_O1_", "toThisOtherAtom": "A:2002:MG__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.232748031616211, "constrainThisAtom":  "A:17:_OG1", "toThisOtherAtom": "A:2002:MG__"},'
+        '.+ 2.72\\d+,.+\"A:40:_OG_\", .+\"A:2002:MG__\".+',
+        '.+ 1.99\\d+,.+\"Z:2001:_O5_\", .+\"A:2002:MG__\".+',
+        '.+ 2.10\\d+,.+\"Z:2001:_O1_\", .+\"A:2002:MG__\".+',
+        '.+ 2.23\\d+,.+\"A:17:_OG1", .+\"A:2002:MG__\".+'
 ]
 
 METAL_CONSTR = [
-       '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0319981575012207, "constrainThisAtom":  "A:239:_OD1", "toThisOtherAtom": "A:350:MG__"},',
-       '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0453453063964844, "constrainThisAtom":  "A:311:_OW_", "toThisOtherAtom": "A:350:MG__"},',
-       '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.5390141010284424, "constrainThisAtom":  "A:401:CL__", "toThisOtherAtom": "A:350:MG__"},',
-       '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0555760860443115, "constrainThisAtom":  "A:312:_OW_", "toThisOtherAtom": "A:350:MG__"},',
-       '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0924105644226074, "constrainThisAtom":  "A:141:_OG_", "toThisOtherAtom": "A:350:MG__"},',
-       '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0959291458129883, "constrainThisAtom":  "A:139:_OG_", "toThisOtherAtom": "A:350:MG__"},'
+       '.+ 2.03\d+,.+\"A:239:_OD1\".+\"A:350:MG__\".+',
+       '.+ 2.04\d+,.+\"A:311:_OW_\".+\"A:350:MG__\".+',
+       '.+ 2.53\d+,.+\"A:401:CL__\", .+\"A:350:MG__\".+',
+       '.+ 2.05\d+,.+\"A:312:_OW_\", .+\"A:350:MG__\".+',
+       '.+ 2.09\d+,.+\"A:141:_OG_\", .+\"A:350:MG__\".+',
+       '.+ 2.09\d+,.+\"A:139:_OG_\", .+\"A:350:MG__\".+'
 ]
 
 ALL_METAL_CONSTR = [
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 1.920946717262268, "constrainThisAtom":  "A:268:_NE2", "toThisOtherAtom": "A:511:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.2836170196533203, "constrainThisAtom":  "A:609:_OW_", "toThisOtherAtom": "A:512:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.447920799255371, "constrainThisAtom":  "A:435:_NE2", "toThisOtherAtom": "A:512:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.749384641647339, "constrainThisAtom":  "A:766:_OW_", "toThisOtherAtom": "A:512:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0511677265167236, "constrainThisAtom":  "A:294:_OE1", "toThisOtherAtom": "A:511:ZN__"},'
+        '.+ 1.92\\d+,.+\"A:268:_NE2", .+\"A:511:ZN__\".+',
+        '.+ 2.28\\d+,.+\"A:609:_OW_\", .+\"A:512:ZN__\".+',
+        '.+ 2.44\\d+,.+\"A:435:_NE2", .+\"A:512:ZN__\".+',
+        '.+ 2.74\\d+,.+\"A:766:_OW_\", .+\"A:512:ZN__\".+',
+        '.+ 2.05\\d+,.+\"A:294:_OE1", .+\"A:511:ZN__\".+'
 ]
 
 SQUARE_PLANAR = [
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.7451300621032715, "constrainThisAtom":  "A:107:_OD2", "toThisOtherAtom": "A:302:MG__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.5832695960998535, "constrainThisAtom":  "A:301:_O2G", "toThisOtherAtom": "A:302:MG__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.181016683578491, "constrainThisAtom":  "A:546:_OW_", "toThisOtherAtom": "A:302:MG__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.6696133613586426, "constrainThisAtom":  "A:301:_O1B", "toThisOtherAtom": "A:302:MG__"},'
+        '.+ 2.74\\d+,.+\"A:107:_OD2", .+\"A:302:MG__\".+',
+        '.+ 2.58\\d+,.+\"A:301:_O2G", .+\"A:302:MG__\".+',
+        '.+ 2.18\\d+,.+\"A:546:_OW_\", .+\"A:302:MG__\".+',
+        '.+ 2.66\\d+,.+\"A:301:_O1B", .+\"A:302:MG__\".+'
 ]
 
 TETRAHEDRAL = [
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.197800636291504, "constrainThisAtom":  "A:1081:_SG_", "toThisOtherAtom": "A:1201:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.2736423015594482, "constrainThisAtom":  "A:1089:_SG_", "toThisOtherAtom": "A:1201:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.312882661819458, "constrainThisAtom":  "A:1092:_SG_", "toThisOtherAtom": "A:1201:ZN__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.275092363357544, "constrainThisAtom":  "A:1084:_ND1", "toThisOtherAtom": "A:1201:ZN__"},'
+        '.+ 2.19\\d+,.+\"A:1081:_SG_\", .+\"A:1201:ZN__\".+',
+        '.+ 2.27\\d+,.+\"A:1089:_SG_\", .+\"A:1201:ZN__\".+',
+        '.+ 2.31\\d+,.+\"A:1092:_SG_\", .+\"A:1201:ZN__\".+',
+        '.+ 2.27\\d+,.+\"A:1084:_ND1", .+\"A:1201:ZN__\".+'
 ]
 
 K_CONSTR = [
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 1.995115876197815, "constrainThisAtom":  "B:709:_OW_", "toThisOtherAtom": "B:603:_K__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.0087051391601562, "constrainThisAtom":  "B:701:_OW_", "toThisOtherAtom": "B:603:_K__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.5826101303100586, "constrainThisAtom":  "B:177:_OD2", "toThisOtherAtom": "B:603:_K__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.017709970474243, "constrainThisAtom":  "B:713:_OW_", "toThisOtherAtom": "B:603:_K__"},',
-        '{"type": "constrainAtomsDistance", "springConstant": 50, "equilibriumDistance": 2.6524617671966553, "constrainThisAtom":  "B:153:_OD2", "toThisOtherAtom": "B:603:_K__"},'
+        '.+ 1.99\\d+,.+\"B:709:_OW_\", .+\"B:603:_K__\".+',
+        '.+ 2.00\\d+,.+\"B:701:_OW_\", .+\"B:603:_K__\".+',
+        '.+ 2.58\\d+,.+\"B:177:_OD2", .+\"B:603:_K__\".+',
+        '.+ 2.01\\d+,.+\"B:713:_OW_\", .+\"B:603:_K__\".+',
+        '.+ 2.65\\d+,.+\"B:153:_OD2", .+\"B:603:_K__\".+'
 ]
 
 POLARISATION = ["    1   1.6445   0.8750  0.200000 0.9545   0.8222   0.005000000   0.000000000"]
@@ -72,7 +73,7 @@ def test_metal_constraints(ext_args=METAL_CONSTR_ARGS):
     # checks metal constraints without any flags
     errors = []
     job, _ = main.run_platform_from_yaml(ext_args)
-    errors = tk.check_file(job.pele_dir, "pele.conf", METAL_CONSTR, errors)
+    errors = tk.check_file_regex(job.pele_dir, "pele.conf", METAL_CONSTR, errors)
     assert not errors
 
 
@@ -80,7 +81,7 @@ def test_no_metal_constraints(ext_args=NO_METAL_CONSTR_ARGS):
     # checks no_metal_constraints flag
     errors = []
     job = main.run_platform_from_yaml(ext_args)
-    errors = tk.check_file(job.pele_dir, "pele.conf", METAL_CONSTR, errors)
+    errors = tk.check_file_regex(job.pele_dir, "pele.conf", METAL_CONSTR, errors)
     assert errors 
 
 
@@ -89,7 +90,7 @@ def test_permissive_constraints(passed=PASS_PERMISSIVE_METAL_CONSTR_ARGS, failed
     # should add constraints around the metal
     errors = []
     job = main.run_platform_from_yaml(passed)
-    errors = tk.check_file(job.pele_dir, "pele.conf", PASS_METAL_CONSTR, errors)
+    errors = tk.check_file_regex(job.pele_dir, "pele.conf", PASS_METAL_CONSTR, errors)
     assert not errors
 
 
@@ -98,7 +99,7 @@ def test_all_metal_constraints(ext_args=ALL_METAL_CONSTR_ARGS, ext_args_permissi
     # checks constrain_all_metals -> should add whatever atoms in range
     errors = []
     job = main.run_platform_from_yaml(ext_args)
-    errors = tk.check_file(job.pele_dir, "pele.conf", ALL_METAL_CONSTR, errors)
+    errors = tk.check_file_regex(job.pele_dir, "pele.conf", ALL_METAL_CONSTR, errors)
     assert not errors
 
     # same system, but permissive -> should fail due to lack of geometry
@@ -114,7 +115,7 @@ def test_square_planar(ext_args=SQUARE_PLANAR_ARGS):
                                                                                                                                                
     errors = []                                                                                                                                                                         
     job = main.run_platform_from_yaml(ext_args)
-    errors = tk.check_file(job.pele_dir, "pele.conf", SQUARE_PLANAR, errors)
+    errors = tk.check_file_regex(job.pele_dir, "pele.conf", SQUARE_PLANAR, errors)
     assert not errors 
 
 
@@ -122,7 +123,7 @@ def test_tetrahedral(ext_args=TETRAHEDRAL_ARGS):
                                                                                                                                                                                             
     errors = []
     job = main.run_platform_from_yaml(ext_args)
-    errors = tk.check_file(job.pele_dir, "pele.conf", TETRAHEDRAL, errors)                                                                                                            
+    errors = tk.check_file_regex(job.pele_dir, "pele.conf", TETRAHEDRAL, errors)
     assert not errors
 
 
@@ -151,12 +152,5 @@ def test_polarisation(ext_args_true=POLARISATION_ARGS, ext_args_false=SQUARE_PLA
     # polarisation with factor 10
     errors = []
     job2 = main.run_platform_from_yaml(ext_args_true)
-    errors = tk.check_file(job2.pele_dir, "DataLocal/Templates/OPLS2005/HeteroAtoms/mgz", POLARISATION, errors)
+    errors = tk.check_file_regex(job2.pele_dir, "DataLocal/Templates/OPLS2005/HeteroAtoms/mgz", POLARISATION, errors)
     assert not errors
-
-#def test_K_dist(ext_args=K_ARGS):
-#
-#    errors = []
-#    job = main.run_platform_from_yaml(ext_args)
-#    errors = tk.check_file(job.pele_dir, "pele.conf", K_CONSTR, errors)                                                                                                              
-#    assert not errors 

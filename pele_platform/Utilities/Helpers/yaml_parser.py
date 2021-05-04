@@ -126,9 +126,7 @@ class YamlParser(object):
         self.out_in = data.get(valid_flags["out_in"], None)
         self.bias_column = data.get(valid_flags["bias_column"], None)
         self.gridres = data.get(valid_flags["gridres"], 10)
-        self.core = data.get(valid_flags["core"], -1)
-        self.mtor = data.get(valid_flags["mtor"], 4)
-        self.n = data.get(valid_flags["n"], 10000)
+        self.core = data.get(valid_flags["core"], None)
         self.template = data.get(valid_flags["template"], None)
         self.ext_temp = self.template
         self.rotamers = data.get(valid_flags["rotamers"], None)
@@ -220,7 +218,6 @@ class YamlParser(object):
         self.constrain_core_spring = data.get(
             valid_flags["constrain_core_spring"], 50.0
         )
-        self.skip_ligand_prep = data.get(valid_flags["skip_ligand_prep"], None)
         self.spawning_condition = data.get(valid_flags["spawning_condition"], None)
         self.external_constraints = data.get(valid_flags["external_constraints"], [])
         self.only_analysis = data.get(valid_flags["only_analysis"], False)
@@ -308,6 +305,11 @@ class YamlParser(object):
         self.max_top_poses = data.get(valid_flags["max_top_poses"], None)
         self.top_clusters_criterion = data.get(valid_flags["top_clusters_criterion"], None)
         self.cluster_representatives_criterion = data.get(valid_flags["cluster_representatives_criterion"], None)
+
+        # peleffy parametrization
+        self.charge_parametrization_method = data.get(valid_flags["charge_parametrization_method"], None)
+        self.exclude_terminal_rotamers = data.get(valid_flags["exclude_terminal_rotamers"], None)
+        self.skip_ligand_prep = data.get(valid_flags["skip_ligand_prep"], None)
 
         if self.test:
             warnings.warn(

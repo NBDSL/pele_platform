@@ -12,16 +12,14 @@ from pele_platform.Utilities.Helpers.constraints import (
 )
 import pele_platform.Utilities.Helpers.simulation as ad
 import pele_platform.Utilities.Helpers.system_prep as sp
-import pele_platform.Utilities.Helpers.missing_residues as mr
 import pele_platform.Utilities.Helpers.randomize as rd
 import pele_platform.Utilities.Helpers.helpers as hp
 import pele_platform.Utilities.Helpers.Metals.metal_constraints as mc
 import pele_platform.Utilities.Helpers.Metals.metal_polarisation as mp
 import pele_platform.Adaptive.metrics as mt
 import pele_platform.Utilities.Helpers.water as wt
-import pele_platform.Adaptive.ligand_parametrization as lg
+from pele_platform.Adaptive import Parameterizer
 import pele_platform.Adaptive.box as bx
-import pele_platform.Adaptive.solvent as sv
 import pele_platform.Adaptive.pca as pca
 
 
@@ -166,9 +164,7 @@ def run_adaptive(args):
             parameters.system, missing_residues, _, _, _ = ppp.main(
                 syst.system,
                 parameters.inputs_dir,
-                output_pdb=[
-                    "",
-                ],
+                output_pdb=["",],
                 charge_terminals=args.charge_ter,
                 no_gaps_ter=args.gaps_ter,
                 mid_chain_nonstd_residue=parameters.nonstandard,
@@ -176,15 +172,13 @@ def run_adaptive(args):
                 back_constr=parameters.ca_constr,
                 constrain_smiles=None,
                 ligand_pdb=parameters.ligand_ref,
-                ca_interval=parameters.ca_interval,
-            )
+                ca_interval=parameters.ca_interval)
 
         parameters.constraints = alpha_constraints.retrieve_constraints(
             parameters.system,
             interval=parameters.ca_interval,
             back_constr=parameters.ca_constr,
-            ter_constr=parameters.terminal_constr,
-        )
+            ter_constr=parameters.terminal_constr)
 
         # Metal constraints
         if not args.no_metal_constraints:
@@ -192,73 +186,49 @@ def run_adaptive(args):
                 args.external_constraints,
                 os.path.join(
                     parameters.inputs_dir,
-                    parameters.adap_ex_input.split(",")[0].strip().strip('"'),
-                ),
+                    parameters.adap_ex_input.split(",")[0].strip().strip('"')),
                 syst.system,
                 permissive=parameters.permissive_metal_constr,
                 all_metals=args.constrain_all_metals,
                 external=parameters.external_constraints,
-                logger=parameters.logger,
-            )
+                logger=parameters.logger)
+
             parameters.external_constraints = hp.retrieve_constraints_for_pele(
-                parameters.external_constraints, parameters.system
-            )
+                parameters.external_constraints, parameters.system)
 
             metal_constraints_json = hp.retrieve_constraints_for_pele(
                 metal_constraints,
                 os.path.join(
                     parameters.inputs_dir,
-                    parameters.adap_ex_input.split(",")[0].strip().strip('"'),
-                ),
-            )
+                    parameters.adap_ex_input.split(",")[0].strip().strip('"')))
+
             parameters.external_constraints.extend(metal_constraints_json)
+
         else:
             parameters.external_constraints = hp.retrieve_constraints_for_pele(
-                parameters.external_constraints, parameters.system
-            )
+                parameters.external_constraints, parameters.system)
 
         # Keep JSON ordered by having first title and then constraints
         if parameters.external_constraints:
-            parameters.constraints = (
-                parameters.constraints[0:1]
-                + parameters.external_constraints
-                + parameters.constraints[1:]
-            )
+            parameters.constraints = (parameters.constraints[0:1]
+                                      + parameters.external_constraints
+                                      + parameters.constraints[1:])
         if parameters.remove_constraints:
             parameters.constraints = ""
-        parameters.logger.info("Complex {} prepared\n\n".format(parameters.system))
 
-        # Ligand parameters and simulation box
+        parameters.logger.info(f"Complex {parameters.system} prepared\n\n")
+
+        # Ligand/metal parameters, solvent parameters and simulation box
         if parameters.perturbation:
-            ligand_params = lg.LigandParametrization(parameters)
-            ligand_params.generate()
-            box = bx.BoxSetter(
-                parameters.box_center,
-                parameters.box_radius,
-                parameters.ligand_ref,
-                parameters.logger,
-            )
+            parameterizer = Parameterizer.from_parameters(parameters)
+            parameterizer.generate_ligand_parameters()
+            box = bx.BoxSetter(parameters.box_center,
+                               parameters.box_radius,
+                               parameters.ligand_ref,
+                               parameters.logger)
             parameters.box = box.generate_json()
         else:
             parameters.box = ""
-
-        # Parametrize missing residues
-        for res, __, _ in missing_residues:
-            if res != args.residue and res not in parameters.skip_ligand_prep:
-                parameters.logger.info("Creating template for residue {}".format(res))
-                with hp.cd(parameters.pele_dir):
-                    mr.create_template(parameters, res)
-                parameters.logger.info("Template {}z created\n\n".format(res))
-
-        # Solvent parameters
-        solvent = sv.ImplicitSolvent(
-            parameters.solvent,
-            parameters.obc_tmp,
-            parameters.template_folder,
-            parameters.obc_file,
-            parameters.logger,
-        )
-        solvent.generate()
 
         # Build PCA
         if parameters.pca_traj:
@@ -275,22 +245,17 @@ def run_adaptive(args):
                 parameters.constrain_core,
                 parameters.residue,
                 parameters.chain,
-                parameters.constrain_core_spring,
-            )
+                parameters.constrain_core_spring)
             smi_constraint = smiles.run()
-            parameters.constraints = (
-                parameters.constraints[0:1]
-                + smi_constraint
-                + parameters.constraints[1:]
-            )
+            parameters.constraints = (parameters.constraints[0:1]
+                                      + smi_constraint
+                                      + parameters.constraints[1:])
 
         # Waters
-        input_waters = [
-            input.strip().strip('"') for input in parameters.adap_ex_input.split(",")
-        ]
-        input_waters = [
-            os.path.join(parameters.inputs_dir, inp) for inp in input_waters
-        ]
+        input_waters = [input.strip().strip('"')
+                        for input in parameters.adap_ex_input.split(",")]
+        input_waters = [os.path.join(parameters.inputs_dir, inp)
+                        for inp in input_waters]
         water_obj = wt.WaterIncluder(
             input_waters,
             parameters.n_waters,
@@ -305,15 +270,15 @@ def run_adaptive(args):
             water_constr=parameters.water_constr,
             test=parameters.test,
             water_freq=parameters.water_freq,
-            ligand_residue=parameters.residue,
-        )
+            ligand_residue=parameters.residue)
         water_obj.run()
         parameters.parameters = water_obj.ligand_perturbation_params
 
         # Check if atoms need mapping due to preprocessing
         args = AtomMapper(args, parameters, syst.system).run()
 
-        # Metrics builder - builds JSON strings for PELE to be able to track atom distances, RMSD, etc.
+        # Metrics builder - builds JSON strings for PELE to be able to
+        # track atom distances, RMSD, etc.
         metrics = mt.MetricBuilder()
         parameters.metrics = (
             metrics.distance_to_atom_json(
