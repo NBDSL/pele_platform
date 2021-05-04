@@ -39,7 +39,7 @@ class Launcher:
         elif package == self.gpcr_orth:
             job_variables = gpcr.GpcrLauncher(self._args).run_gpcr_simulation()
         elif package == self.out_in:
-            job_variables = outin.OutInLauncher(self._args).run_gpcr_simulation()
+            job_variables = outin.OutInLauncher(self._args).run_outin_simulation()
         elif package == self.site_finder:
             job_variables = al.SiteFinderLauncher(self._args).run_site_finder()
         elif package == self.ppi:

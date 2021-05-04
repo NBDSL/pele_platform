@@ -1,0 +1,12 @@
+system: '../pele_platform/Examples/bias/complex.pdb'
+chain: 'L'
+resname: 'LIG'
+out_in: true
+debug: true
+initial_site: "C:4:CA"
+final_site: "C:255:CA"
+box_center:
+  - 100
+  - 100
+  - 100
+box_radius: 100
