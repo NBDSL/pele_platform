@@ -115,6 +115,7 @@ class YamlParser(object):
         self.cluster_conditions = data.get(valid_flags["cluster_conditions"], None)
         self.simulation_type = data.get(valid_flags["simulation_type"], None)
         self.equilibration = data.get(valid_flags["equilibration"], None)
+        self.equilibration_mode = data.get(valid_flags["equilibration_mode"], None)
         self.clust_type = data.get(valid_flags["clust_type"], None)
         self.eq_steps = data.get(valid_flags["eq_steps"], None)
         self.adaptive_restart = data.get(valid_flags["adaptive_restart"], None)

@@ -315,6 +315,11 @@ class SimulationParams(
             if args.equilibration
             else self.simulation_params.get("equilibration", "false")
         )
+        self.equilibration_mode = (
+                args.equilibration_mode 
+                if args.equilibration_mode
+                else self.simulation_params.get("equilibration_mode", "equilibrationSelect")
+        )
         self.adaptive_restart = args.adaptive_restart
         self.poses = (
             args.poses
