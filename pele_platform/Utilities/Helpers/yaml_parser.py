@@ -267,6 +267,7 @@ class YamlParser(object):
         self.frag_library = data.get(valid_flags["frag_library"], None)
         self.frag_core_atom = data.get(valid_flags["frag_core_atom"], None)
         self.analysis_to_point = data.get(valid_flags["analysis_to_point"], None)
+        self.fragment_atom = data.get(valid_flags["fragment_atom"], None)
 
         # PPI
         self.n_components = data.get(valid_flags["n_components"], None)

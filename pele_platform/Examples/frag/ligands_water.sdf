@@ -1,0 +1,317 @@
+Structure8,ligand-designer_form-hbond
+                    3D
+ Schrodinger Suite 2021-1.
+ 56 59  0  0  1  0            999 V2000
+   -6.3876    0.6505   -0.3714 N   0  0  0  0  0  0
+   -6.9382   -0.0542    0.6502 C   0  0  0  0  0  0
+   -8.2620   -0.1751    0.8090 N   0  0  0  0  0  0
+   -6.1495   -0.6721    1.5605 N   0  3  0  0  0  0
+   -4.6706   -0.6630    1.5634 C   0  0  0  0  0  0
+   -4.0874   -1.2712    2.4589 O   0  0  0  0  0  0
+   -4.1260    0.1375    0.4003 C   0  0  0  0  0  0
+   -2.7734    0.2250    0.2862 N   0  0  0  0  0  0
+   -2.2756    0.9412   -0.7647 C   0  0  0  0  0  0
+   -3.1301    1.5786   -1.6746 C   0  0  0  0  0  0
+   -4.4839    1.4950   -1.5683 N   0  0  0  0  0  0
+   -4.9743    0.7718   -0.5300 C   0  0  0  0  0  0
+   -0.7613    1.0926   -0.8938 C   0  0  0  0  0  0
+   -0.0205   -0.0656   -0.3971 N   0  0  0  0  0  0
+    4.1899   -0.3075   -0.3365 C   0  0  0  0  0  0
+    3.5664    0.8865   -0.7248 C   0  0  0  0  0  0
+    2.1782    0.9884   -0.7528 C   0  0  0  0  0  0
+    1.3842   -0.1050   -0.3874 C   0  0  0  0  0  0
+    1.9970   -1.2942    0.0068 C   0  0  0  0  0  0
+    3.3852   -1.3977    0.0322 C   0  0  0  0  0  0
+    5.7033   -0.3923   -0.3176 C   0  0  0  0  0  0
+    6.3930    0.6209   -0.4541 O   0  0  0  0  0  0
+    6.2360   -1.6215   -0.1635 N   0  0  0  0  0  0
+    7.6709   -1.9754   -0.1296 C   0  0  1  0  0  0
+    8.2947   -1.8452    1.2938 C   0  0  0  0  0  0
+    8.2656   -0.4352    1.9058 C   0  0  0  0  0  0
+    7.9145   -3.4279   -0.7065 C   0  0  0  0  0  0
+    9.1098   -3.6608   -1.0034 O   0  0  0  0  0  0
+    6.9293   -4.2010   -0.8022 O   0  5  0  0  0  0
+   -7.0182    1.0922   -1.0250 H   0  0  0  0  0  0
+   -8.5690   -0.7212    1.6015 H   0  0  0  0  0  0
+   -6.5974   -1.1853    2.3059 H   0  0  0  0  0  0
+   -2.7431    2.1637   -2.4963 H   0  0  0  0  0  0
+   -0.4491    1.9936   -0.3640 H   0  0  0  0  0  0
+   -0.5036    1.2306   -1.9453 H   0  0  0  0  0  0
+   -0.5301   -0.9210   -0.2276 H   0  0  0  0  0  0
+    4.1511    1.7483   -1.0142 H   0  0  0  0  0  0
+    1.7372    1.9239   -1.0622 H   0  0  0  0  0  0
+    1.4011   -2.1483    0.2955 H   0  0  0  0  0  0
+    3.8191   -2.3363    0.3457 H   0  0  0  0  0  0
+    5.6119   -2.4153   -0.1663 H   0  0  0  0  0  0
+    8.1983   -1.2978   -0.8073 H   0  0  0  0  0  0
+    9.3403   -2.1568    1.2678 H   0  0  0  0  0  0
+    7.7912   -2.5283    1.9802 H   0  0  0  0  0  0
+    8.8101   -0.4133    2.8501 H   0  0  0  0  0  0
+    8.7289    0.2944    1.2408 H   0  0  0  0  0  0
+    7.2477   -0.1070    2.1151 H   0  0  0  0  0  0
+   -9.3235    0.4062   -0.0318 C   0  0  0  0  0  0
+  -10.7622    0.1615    0.4444 C   0  0  0  0  0  0
+  -11.0153    1.6287    0.5165 O   0  0  0  0  0  0
+   -9.5952    1.9058    0.1599 C   0  0  0  0  0  0
+   -9.1510    0.1117   -1.0676 H   0  0  0  0  0  0
+  -11.4315   -0.2807   -0.2948 H   0  0  0  0  0  0
+  -10.8912   -0.2643    1.4419 H   0  0  0  0  0  0
+   -9.1101    2.3934    1.0082 H   0  0  0  0  0  0
+   -9.5663    2.5078   -0.7492 H   0  0  0  0  0  0
+  1  2  1  0  0  0
+  1 12  1  0  0  0
+  1 30  1  0  0  0
+  2  3  1  0  0  0
+  2  4  2  0  0  0
+  3 31  1  0  0  0
+  3 48  1  0  0  0
+  4  5  1  0  0  0
+  4 32  1  0  0  0
+  5  6  2  0  0  0
+  5  7  1  0  0  0
+  7  8  2  0  0  0
+  7 12  1  0  0  0
+  8  9  1  0  0  0
+  9 10  2  0  0  0
+  9 13  1  0  0  0
+ 10 11  1  0  0  0
+ 10 33  1  0  0  0
+ 11 12  2  0  0  0
+ 13 14  1  0  0  0
+ 13 34  1  0  0  0
+ 13 35  1  0  0  0
+ 14 18  1  0  0  0
+ 14 36  1  0  0  0
+ 15 16  2  0  0  0
+ 15 20  1  0  0  0
+ 15 21  1  0  0  0
+ 16 17  1  0  0  0
+ 16 37  1  0  0  0
+ 17 18  2  0  0  0
+ 17 38  1  0  0  0
+ 18 19  1  0  0  0
+ 19 20  2  0  0  0
+ 19 39  1  0  0  0
+ 20 40  1  0  0  0
+ 21 22  2  0  0  0
+ 21 23  1  0  0  0
+ 23 24  1  0  0  0
+ 23 41  1  0  0  0
+ 24 25  1  0  0  0
+ 24 27  1  0  0  0
+ 24 42  1  0  0  0
+ 25 26  1  0  0  0
+ 25 43  1  0  0  0
+ 25 44  1  0  0  0
+ 26 45  1  0  0  0
+ 26 46  1  0  0  0
+ 26 47  1  0  0  0
+ 27 28  2  0  0  0
+ 27 29  1  0  0  0
+ 48 51  1  0  0  0
+ 48 49  1  0  0  0
+ 48 52  1  0  0  0
+ 49 50  1  0  0  0
+ 49 53  1  0  0  0
+ 49 54  1  0  0  0
+ 50 51  1  0  0  0
+ 51 55  1  0  0  0
+ 51 56  1  0  0  0
+M  CHG  2   4   1  29  -1
+M  END
+> <i_m_stars>
+0
+
+> <s_m_entry_id>
+123
+
+> <s_m_entry_name>
+ligands.1
+
+> <s_pdb_PDB_TITLE>
+ISOMORPHOUS CRYSTAL STRUCTURES OF ESCHERICHIA COLI DIHYDROFOLATE REDUCTASE COMPLEXED WITH FOLATE, 5- DEAZAFOLATE AND 5,10-DIDEAZATETRAHYDROFOLATE: MECHANISTIC IMPLICATIONS
+
+> <s_pdb_PDB_ID>
+1DYI
+
+> <r_pdb_PDB_CRYST1_a>
+93.066
+
+> <r_pdb_PDB_CRYST1_b>
+93.066
+
+> <r_pdb_PDB_CRYST1_c>
+73.81
+
+> <r_pdb_PDB_CRYST1_alpha>
+90
+
+> <r_pdb_PDB_CRYST1_beta>
+90
+
+> <r_pdb_PDB_CRYST1_gamma>
+120
+
+> <s_pdb_PDB_CRYST1_Space_Group>
+P 61
+
+> <i_pdb_PDB_CRYST1_z>
+12
+
+> <s_pdb_PDB_CLASSIFICATION>
+OXIDOREDUCTASE
+
+> <s_pdb_PDB_DEPOSITION_DATE>
+26-OCT-94
+
+> <s_pdb_PDB_format_version>
+3.15
+
+> <r_pdb_PDB_RESOLUTION>
+1.9
+
+> <s_pdb_PDB_EXPDTA>
+X-RAY DIFFRACTION
+
+> <s_pdb_PDB_REMARK_350_Biomolecule_1_Transform_1_Chains>
+A, B
+
+> <s_pdb_PDB_REMARK_350_Biomolecule_1_Transform_1_Matrix_1>
+1.000000 0.000000 0.000000   0.000000;0.000000 1.000000 0.000000   0.000000;0.000000 0.000000 1.000000   0.000000
+
+> <s_m_Source_Path>
+/home/hmartin/repos/pele_platform/tests/1w7h_frag3
+
+> <s_m_Source_File>
+ligands.sdf
+
+> <i_m_Source_File_Index>
+1
+
+> <i_rge_num_r_groups>
+1
+
+> <r_rge_occupation_R1>
+1
+
+> <s_rge_R1>
+ligand-designer_form-hbond
+
+> <s_rge_R1_s_m_title>
+ligand-designer_form-hbond
+
+> <i_rge_R1_i_m_stars>
+0
+
+> <s_rge_R1_s_m_entry_id>
+26083
+
+> <s_rge_R1_s_m_entry_name>
+ligand-designer_form-hbond.smi-ligprep.1
+
+> <s_rge_R1_s_m_smiles>
+[*]C1COC1
+
+> <i_rge_R1_i_lp_mmshare_version>
+42013
+
+> <i_rge_R1_i_f3d_flags>
+0
+
+> <s_rge_R1_s_m_Source_File>
+ligand-designer_form-hbond.maegz-dedup.maegz-names.maegz
+
+> <i_rge_R1_i_m_Source_File_Index>
+1
+
+> <s_rge_R1_s_m_Source_Path>
+/Users/konze/projects/pathfinder/r-groups/final-r-groups
+
+> <s_rge_R1_s_canvas_Unique_SMILES_Stereo>
+ClC1COC1
+
+> <s_rge_R1_s_m_subgroup_title>
+ligand-designer_form-hbond
+
+> <s_rge_R1_s_m_subgroupid>
+ligand-designer_form-hbond.smi-ligprep11
+
+> <b_rge_R1_b_m_subgroup_collapsed>
+1
+
+> <s_rge_R1_s_epik_input>
+Q2xbQ0hdMVtDSDJdT1tDSDJdMQ==
+
+> <s_rge_R1_s_epik_cmdline>
+J2VwaWtfcHl0aG9uJywgJy1waHQnLCAnMC43JywgJy1waCcsICc3LjAnLCAnLXRuJywgJzgnLCAnLW1hJywgJzIwMCcsICctaW1hZScsICc8aW5maWxlLm1hZT4nLCAnLW9tYWUnLCAnPG91dGZpbGUubWFlPic=
+
+> <r_rge_R1_r_epik_Ionization_Penalty>
+0
+
+> <r_rge_R1_r_epik_Ionization_Penalty_Charging>
+0
+
+> <r_rge_R1_r_epik_Ionization_Penalty_Neutral>
+0
+
+> <r_rge_R1_r_epik_State_Penalty>
+0
+
+> <r_rge_R1_r_epik_Charging_Adjusted_Penalty>
+0
+
+> <i_rge_R1_i_epik_Tot_Q>
+0
+
+> <i_rge_R1_i_epik_Tot_abs_Q>
+0
+
+> <s_rge_R1_s_lp_Force_Field>
+OPLS_2005
+
+> <r_rge_R1_r_lp_Energy>
+4.85861372005103
+
+> <b_rge_R1_b_lp_Chiralities_Consistent>
+1
+
+> <s_rge_R1_s_lp_Variant>
+Untitled_Molecule_000037-1
+
+> <r_rge_R1_r_lp_tautomer_probability>
+1
+
+> <i_lp_mmshare_version>
+53156
+
+> <r_lp_tautomer_probability>
+1
+
+> <s_lp_Force_Field>
+S-OPLS
+
+> <r_lp_Energy>
+59.104424
+
+> <b_lp_Chiralities_Consistent>
+1
+
+> <s_lp_Variant>
+Structure8,ligand-designer_form-hbond-1
+
+> <s_m_job_name>
+ligprep_7
+
+> <i_f3d_flags>
+0
+
+> <s_m_subgroup_title>
+ligprep_7-out1
+
+> <s_m_subgroupid>
+ligprep_7-out11
+
+> <b_m_subgroup_collapsed>
+0
+
+$$$$

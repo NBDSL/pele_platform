@@ -1,6 +1,6 @@
 frag_core: "../pele_platform/Examples/frag/1w7h_preparation_structure_2w.pdb"
 resname: "3IP"
-frag_library: "../pele_platform/Examples/frag/pdb_test_lib"
+frag_library: "sdf_test_lib/"
 frag_core_atom: "C3-H2"
+fragment_atom: "H1"
 test: true
-

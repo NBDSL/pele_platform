@@ -66,6 +66,12 @@ Prepare input.yaml file:
     frag_core_atom: "C6-H6"  # Connection point from which you want to grow the fragments
     cpus: 48
 
+Optional Parameters
++++++++++++++++++++++++
+
+* **frag_restart**: To resume a fragment libraries simulation.
+* **fragment_atom**: To select an hydrogen of the fragment which we want to attach it to the **frag_core_atom**, instead of performing a simulation from every hydrogen on the fragment. 
+
 Defining frag_core_atom
 ++++++++++++++++++++++++++++
 

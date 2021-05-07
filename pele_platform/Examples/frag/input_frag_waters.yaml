@@ -1,0 +1,8 @@
+frag_core: "../pele_platform/Examples/frag/1dyi_waters.pdb"
+system: "../pele_platform/Examples/frag/1dyi_waters.pdb"
+frag_ligands: "../pele_platform/Examples/frag/ligands_water.sdf"
+resname: "LIG"
+chain_core: "Z"
+frag_core_atom: "C3-H2"
+waters: "all_waters"
+test: true

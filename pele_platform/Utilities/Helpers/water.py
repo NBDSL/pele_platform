@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
 from Bio.PDB import PDBParser, PDBIO, Selection, NeighborSearch, Vector
+#import xpdb  # this is the module described below
 import glob
 import numpy as np
 import os
@@ -8,6 +9,7 @@ import pele_platform.constants.constants as cs
 import pele_platform.Errors.custom_errors as ce
 import pele_platform.Utilities.Helpers.helpers as hp
 import pele_platform.constants.pele_params as pp
+import sys
 
 TEMPLATE = '{{"watersToPerturb": {{"links": {{"ids": [{index}] }}}}, "Box": {{"radius": {radius}, "fixedCenter": [{com}], "type": "sphericalBox"}}}}'
 
@@ -127,7 +129,10 @@ class WaterIncluder():
     
         # get maximum residue and atom numbers keep original waters
         with open(self.input_pdbs[0], "r") as file:
-            pdb_lines = [ line for line in file.readlines() if "END" not in line]
+            lines = file.readlines()
+            conect = [line for line in lines if "CONECT" in line]
+            pdb_lines = [line for line in lines if "END" not in line and "CONECT" not in line]
+
             for line in pdb_lines:
                 if line.startswith("ATOM") or line.startswith("HETATM") or line.startswith("TER"):
                     try:
@@ -192,8 +197,8 @@ class WaterIncluder():
                     file.write("\n")
                     for line in w:
                         file.write(line)
+
                     file.write("END")
-    
                 # load again with Biopython
                 parser = PDBParser()
                 structure = parser.get_structure("complex", new_protein_file)
@@ -201,7 +206,7 @@ class WaterIncluder():
                 protein_list = Selection.unfold_entities(structure, "A")
                 temp_protein_file = os.path.join(os.path.dirname(inp),
                                                  os.path.basename(inp).replace(".pdb", "_temp.pdb"))
-    
+                
                 for res in structure.get_residues():
                     resnum = res._id[1]
                     if res.resname == 'HOH':
@@ -228,7 +233,7 @@ class WaterIncluder():
                 io.set_structure(structure)
                 io.save(temp_protein_file)
                 output.append(new_protein_file)
-    
+
                 new_water_lines = []
                 with open(temp_protein_file, "r") as temp:
                     temp_lines = temp.readlines()
@@ -238,9 +243,9 @@ class WaterIncluder():
                             if line[12:15] == "2HW":
                                 line = line.strip("\n") + "\nTER\n"
                             new_water_lines.append(line)
-    
+
                 del new_water_lines[-1] #Last biopython line is a not need it TER
-                
+
                 with open(new_protein_file, "w+") as file:
                     for line in pdb_lines:
                         file.write(line)
@@ -248,10 +253,11 @@ class WaterIncluder():
                         file.write("TER\n")
                     for line in new_water_lines:
                         file.write(line)
+                    for line in conect:
+                        file.write(line)
+                    file.write("\n")
                     file.write("END")
-    
                 os.remove(temp_protein_file)
-
 
 def ligand_com(refinement_input, ligand_chain):
     parser = PDBParser()

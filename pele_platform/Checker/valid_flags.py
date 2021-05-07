@@ -144,6 +144,7 @@ VALID_FLAGS_PLATFORM = {
     "schrodinger": "schrodinger",
     "no_check": "no_check",
     "frag_core": "frag_core",
+    "frag_core_atom": "frag_core_atom",
     "frag_input": "frag_input",
     "frag_ligands": "frag_ligands",
     "growing_steps": "growing_steps",
@@ -193,6 +194,7 @@ VALID_FLAGS_PLATFORM = {
     "singularity_exec": "singularity_exec",
     "top_clusters_criterion": "top_clusters_criterion",
     "cluster_representatives_criterion": "cluster_representatives_criterion",
+    "fragment_atom": "fragment_atom"
     "site_finder_local": "site_finder_local",
     "site_finder_global": "site_finder_global",
 }
